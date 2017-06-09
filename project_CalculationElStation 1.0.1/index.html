@@ -20,14 +20,18 @@
 
 	<div class="container">
 		<div class="row">
+			
+			<div id="_work_space" class="col-sm-8 col-md-8 work-space">
 
-			<div id="_work_space" class="col-md-8 work-space"></div>
 
-			<div class="col-md-4 items-space">
+
+			</div>
+
+			<div class="col-sm-4 col-md-4 items-space">
 				<!-- NAV TABS -->
 				<ul id="responsivetab" class="nav nav-tabs nav-menu-custom" role="tablist">
 <!-- ***********************Генератори******************** -->
-					<li role="presentation" class="dropdown">
+					<li role="presentation" class="dropdown active">
 						<a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown" aria-controls="myTabDrop1-contents" aria-expanded="true">Генератори</a>
 
 						<ul class="dropdown-menu" aria-labelledby="myTabDrop1" id="myTabDrop1-contents">
@@ -53,192 +57,200 @@
 
 						<ul class="dropdown-menu" aria-labelledby="myTabDrop3" id="myTabDrop3-contents">
 							<li role="presentation"><a href="#shina1" aria-controls="shina1" role="tab" data-toggle="tab">Збірна шина</a></li>
+
+							<li role="presentation"><a href="#conductor" aria-controls="conductor" role="tab" data-toggle="tab">Провідник</a></li>
 						</ul>
 
 					</li>
 
 				</ul>
 
+<!--************************ TAB CONTENT ************************ -->
 				<div class="tab-content">
+
 				<!-- 1st TAB ТВФ-32У3-->
-					<div role="tabpanel" class="tab-pane" id="tvf-32">
+					<div role="tabpanel" class="tab-pane active" id="tvf-32" data-type="generator">
+						<p>Генератор типу: <b>ТВФ-32У3</b></p>
 						<!-- Uном -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon1">U<sub>ном</sub></span>
-							<input type="text" class="form-control" value="10.5" aria-describedby="basic-addon1">
+							<input type="text" class="form-control" data-param="Unom" value="10.5" aria-describedby="basic-addon1">
 							<span class="input-group-addon" id="basic-addon1">кВт</span>
 						</div>
 						<!-- S -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon3">S</span>
-							<input type="text" class="form-control" value="40" aria-describedby="basic-addon3">
+							<input type="text" class="form-control" data-param="S" value="40" aria-describedby="basic-addon3">
 							<span class="input-group-addon" id="basic-addon3">МВ*A</span>
 						</div>
 						<!-- Pnom -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon2">P<sub>ном</sub></span>
-							<input type="text" class="form-control" value="32" aria-describedby="basic-addon2">
+							<input type="text" class="form-control" data-param="Pnom" value="32" aria-describedby="basic-addon2">
 							<span class="input-group-addon" id="basic-addon2">МВт</span>
 						</div>
 						<!-- n -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon4">n</span>
-							<input type="text" class="form-control" value="3000" aria-describedby="basic-addon4">
+							<input type="text" class="form-control" data-param="n" value="3000" aria-describedby="basic-addon4">
 							<span class="input-group-addon" id="basic-addon4">об/хв</span>
 						</div>
 						<!-- X''d -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon5">X''<sub>d</sub></span>
-							<input type="text" class="form-control" value="2.648" aria-describedby="basic-addon5">
+							<input type="text" class="form-control" data-param="Xd" value="2.648" aria-describedby="basic-addon5">
 							<span class="input-group-addon" id="basic-addon5">%</span>
 						</div>
 						<!-- cos f -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon6">cos φ </span>
-							<input type="text" class="form-control" value="0.8" aria-describedby="basic-addon6">
+							<input type="text" class="form-control" data-param="cosf" value="0.8" aria-describedby="basic-addon6">
 						</div>
 						<!-- cost -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon7">Ціна</span>
-							<input type="text" class="form-control" value="2500" aria-describedby="basic-addon7">
+							<input type="text" class="form-control" data-param="price" value="2500" aria-describedby="basic-addon7">
 							<span class="input-group-addon" id="basic-addon7">грн.</span>
 						</div>
 
 					</div>
 
 					<!-- ТВФ-63-2У3 -->
-					<div role="tabpanel" class="tab-pane" id="tvf-63">
+					<div role="tabpanel" class="tab-pane" id="tvf-63" data-type="generator">
+					<p>Генератор типу: <b>ТВФ-63-2У3</b></p>
 						<!-- Uном -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon1">U<sub>ном</sub></span>
-							<input type="text" class="form-control" value="10.5" aria-describedby="basic-addon1">
+							<input type="text" class="form-control" data-param="Unom" value="10.5" aria-describedby="basic-addon1">
 							<span class="input-group-addon" id="basic-addon1">кВт</span>
 						</div>
 						<!-- S -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon3">S</span>
-							<input type="text" class="form-control" value="78.5" aria-describedby="basic-addon3">
+							<input type="text" class="form-control" data-param="S" value="78.5" aria-describedby="basic-addon3">
 							<span class="input-group-addon" id="basic-addon3">МВ*A</span>
 						</div>
 						<!-- Pnom -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon2">P<sub>ном</sub></span>
-							<input type="text" class="form-control" value="63" aria-describedby="basic-addon2">
+							<input type="text" class="form-control" data-param="Pnom" value="63" aria-describedby="basic-addon2">
 							<span class="input-group-addon" id="basic-addon2">МВт</span>
 						</div>
 						<!-- n -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon4">n</span>
-							<input type="text" class="form-control" value="3000" aria-describedby="basic-addon4">
+							<input type="text" class="form-control" data-param="n" value="3000" aria-describedby="basic-addon4">
 							<span class="input-group-addon" id="basic-addon4">об/хв</span>
 						</div>
 						<!-- X''d -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon5">X''<sub>d</sub></span>
-							<input type="text" class="form-control" value="15.3" aria-describedby="basic-addon5">
+							<input type="text" class="form-control" data-param="Xd" value="15.3" aria-describedby="basic-addon5">
 							<span class="input-group-addon" id="basic-addon5">%</span>
 						</div>
 						<!-- cos f -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon6">cos φ </span>
-							<input type="text" class="form-control" value="0.8" aria-describedby="basic-addon6">
+							<input type="text" class="form-control" data-param="cosf" value="0.8" aria-describedby="basic-addon6">
 						</div>
 						<!-- cost -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon7">Ціна</span>
-							<input type="text" class="form-control" value="3301.58" aria-describedby="basic-addon7">
+							<input type="text" class="form-control" data-param="price" value="3301.58" aria-describedby="basic-addon7">
 							<span class="input-group-addon" id="basic-addon7">грн.</span>
 						</div>
 
 					</div>
 
 					<!-- ТВФ-120-2У3 -->
-					<div role="tabpanel" class="tab-pane" id="tvf-120">
+					<div role="tabpanel" class="tab-pane" id="tvf-120" data-type="generator">
+						<p>Генератор типу: <b>ТВФ-120-2У3</b></p>
 						<!-- Uном -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon1">U<sub>ном</sub></span>
-							<input type="text" class="form-control" value="10.5" aria-describedby="basic-addon1">
+							<input type="text" class="form-control" data-param="Unom" value="10.5" aria-describedby="basic-addon1">
 							<span class="input-group-addon" id="basic-addon1">кВт</span>
 						</div>
 						<!-- S -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon3">S</span>
-							<input type="text" class="form-control" value="125" aria-describedby="basic-addon3">
+							<input type="text" class="form-control" data-param="S" value="125" aria-describedby="basic-addon3">
 							<span class="input-group-addon" id="basic-addon3">МВ*A</span>
 						</div>
 						<!-- Pnom -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon2">P<sub>ном</sub></span>
-							<input type="text" class="form-control" value="100" aria-describedby="basic-addon2">
+							<input type="text" class="form-control" data-param="Pnom" value="100" aria-describedby="basic-addon2">
 							<span class="input-group-addon" id="basic-addon2">МВт</span>
 						</div>
 						<!-- n -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon4">n</span>
-							<input type="text" class="form-control" value="3000" aria-describedby="basic-addon4">
+							<input type="text" class="form-control" data-param="n" value="3000" aria-describedby="basic-addon4">
 							<span class="input-group-addon" id="basic-addon4">об/хв</span>
 						</div>
 						<!-- X''d -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon5">X''<sub>d</sub></span>
-							<input type="text" class="form-control" value="19.2" aria-describedby="basic-addon5">
+							<input type="text" class="form-control" data-param="Xd" value="19.2" aria-describedby="basic-addon5">
 							<span class="input-group-addon" id="basic-addon5">%</span>
 						</div>
 						<!-- cos f -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon6">cos φ </span>
-							<input type="text" class="form-control" value="0.8" aria-describedby="basic-addon6">
+							<input type="text" class="form-control" data-param="cosf" value="0.8" aria-describedby="basic-addon6">
 						</div>
 						<!-- cost -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon7">Ціна</span>
-							<input type="text" class="form-control" value="4444.44" aria-describedby="basic-addon7">
+							<input type="text" class="form-control" data-param="price" value="4444.44" aria-describedby="basic-addon7">
 							<span class="input-group-addon" id="basic-addon7">грн.</span>
 						</div>
 
 					</div>
 
 					<!-- ТГВ-3002УЗ -->
-					<div role="tabpanel" class="tab-pane" id="tgv-300">
+					<div role="tabpanel" class="tab-pane" id="tgv-300" data-type="generator">
+						<p>Генератор типу: <b>ТВФ-3002УЗ</b></p>
 						<!-- Uном -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon1">U<sub>ном</sub></span>
-							<input type="text" class="form-control" value="20" aria-describedby="basic-addon1">
+							<input type="text" class="form-control" data-param="Unom" value="20" aria-describedby="basic-addon1">
 							<span class="input-group-addon" id="basic-addon1">кВт</span>
 						</div>
 						<!-- S -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon3">S</span>
-							<input type="text" class="form-control" value="352" aria-describedby="basic-addon3">
+							<input type="text" class="form-control" data-param="S" value="352" aria-describedby="basic-addon3">
 							<span class="input-group-addon" id="basic-addon3">МВ*A</span>
 						</div>
 						<!-- Pnom -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon2">P<sub>ном</sub></span>
-							<input type="text" class="form-control" value="300" aria-describedby="basic-addon2">
+							<input type="text" class="form-control" data-param="Pnom" value="300" aria-describedby="basic-addon2">
 							<span class="input-group-addon" id="basic-addon2">МВт</span>
 						</div>
 						<!-- n -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon4">n</span>
-							<input type="text" class="form-control" value="3000" aria-describedby="basic-addon4">
+							<input type="text" class="form-control" data-param="n" value="3000" aria-describedby="basic-addon4">
 							<span class="input-group-addon" id="basic-addon4">об/хв</span>
 						</div>
 						<!-- X''d -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon5">X''<sub>d</sub></span>
-							<input type="text" class="form-control" value="19.5" aria-describedby="basic-addon5">
+							<input type="text" class="form-control" data-param="Xd" value="19.5" aria-describedby="basic-addon5">
 							<span class="input-group-addon" id="basic-addon5">%</span>
 						</div>
 						<!-- cos f -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon6">cos φ </span>
-							<input type="text" class="form-control" value="0.85" aria-describedby="basic-addon6">
+							<input type="text" class="form-control" data-param="cosf" value="0.85" aria-describedby="basic-addon6">
 						</div>
 						<!-- cost -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon7">Ціна</span>
-							<input type="text" class="form-control" value="11428.57" aria-describedby="basic-addon7">
+							<input type="text" class="form-control" data-param="price" value="11428.57" aria-describedby="basic-addon7">
 							<span class="input-group-addon" id="basic-addon7">грн.</span>
 						</div>
 
@@ -247,53 +259,54 @@
 
 				<!-- Трансформатори TAB -->
 				<!-- ТДЦ-125000/110 -->
-					<div role="tabpanel" class="tab-pane" id="tdc-110">
+					<div role="tabpanel" class="tab-pane" id="tdc-110" data-type="transformator">
+						<p>Трансформатор типу: <b>ТДЦ-125000/110</b></p>
 						<!-- Sном -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon1">S<sub>ном</sub></span>
-							<input type="text" class="form-control" value="125" aria-describedby="basic-addon1">
+							<input type="text" class="form-control" data-param="Snom" value="125" aria-describedby="basic-addon1">
 							<span class="input-group-addon" id="basic-addon1">МВА</span>
 						</div>
 						<!-- Напруга КЗ -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon2">U<sub>кз</sub></span>
-							<input type="text" class="form-control" value="10.5" aria-describedby="basic-addon2">
+							<input type="text" class="form-control" data-param="Ukz" value="10.5" aria-describedby="basic-addon2">
 							<span class="input-group-addon" id="basic-addon2">%</span>
 						</div>
 						<!-- Uvn -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon3">U<sub>вн</sub></span>
-							<input type="text" class="form-control" value="121" aria-describedby="basic-addon3">
+							<input type="text" class="form-control" data-param="Uvn" value="121" aria-describedby="basic-addon3">
 							<span class="input-group-addon" id="basic-addon3">кВ</span>
 						</div>
 						<!-- Unn -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon4">U<sub>нн</sub></span>
-							<input type="text" class="form-control" value="10.5" aria-describedby="basic-addon4">
+							<input type="text" class="form-control" data-param="Unn" value="10.5" aria-describedby="basic-addon4">
 							<span class="input-group-addon" id="basic-addon4">кВ</span>
 						</div>
 						<!-- Втрати ХХ -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon5">ΔP<sub>хх</sub></span>
-							<input type="text" class="form-control" value="120" aria-describedby="basic-addon5">
+							<input type="text" class="form-control" data-param="dPxx" value="120" aria-describedby="basic-addon5">
 							<span class="input-group-addon" id="basic-addon5">кВт</span>
 						</div>
 						<!-- Втрати КЗ -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon8">ΔP<sub>кз</sub></span>
-							<input type="text" class="form-control" value="400" aria-describedby="basic-addon8">
+							<input type="text" class="form-control" data-param="dPkz" value="400" aria-describedby="basic-addon8">
 							<span class="input-group-addon" id="basic-addon8">кВт</span>
 						</div>						
 						<!-- Струм ХХ -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon6">I<sub>хх</sub></span>
-							<input type="text" class="form-control" value="0.55" aria-describedby="basic-addon6">
+							<input type="text" class="form-control" data-param="Ixx" value="0.55" aria-describedby="basic-addon6">
 							<span class="input-group-addon" id="basic-addon6">%</span>
 						</div>
 						<!-- cost -->
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon7">Ціна</span>
-							<input type="text" class="form-control" value="2888.9" aria-describedby="basic-addon7">
+							<input type="text" class="form-control" data-param="price" value="2888.9" aria-describedby="basic-addon7">
 							<span class="input-group-addon" id="basic-addon7">грн.</span>
 						</div>
 
@@ -301,17 +314,35 @@
 				<!-- END 2th TAB -->
 
 				<!-- Шини TAB -->
-					<div role="tabpanel" class="tab-pane" id="shina1">		
-						<div class="input-group">
-							<span class="input-group-addon" id="basic-addon1">Шина</span>
-						</div>	
+					<!-- Збірна шина -->
+					<div role="tabpanel" class="tab-pane" id="shina1" data-type="shina">		
+						<p>Збірна шина</p>
+	
+						<button type="button" id="btn_shina" class="btn btn-default disabled">Змінити розмір</button>
+					</div>
+					<!-- Провідник -->
+					<div role="tabpanel" class="tab-pane" id="conductor" data-type="conductor">		
+						<p>Провідник звичайний</p>
+
+<!-- 						<button type="button" id="btn_shina" class="btn btn-default disabled">Змінити розмір</button> -->
 					</div>
 					<!-- END 3th TAB -->	
 
 				</div>
-
+				<hr>
+				<!-- END Item Data -->
 			 	<button type="button" id="btn_add" class="btn btn-default">Додати</button>
-			 	
+			 	<hr>
+			 	<!-- Results -->
+			 	<div id="results">
+
+			 		<div id="Items_list">
+			 			
+			 		</div>
+
+			 	</div>
+			 	<!-- END Results -->
+
 			</div> 
 		</div>
 	</div>
@@ -321,7 +352,7 @@
 
 
 
-
+	<link rel="stylesheet" href="css/jquery-ui.min.css">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/main.css">
 
@@ -329,6 +360,7 @@
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/responsivetab.js"></script>
 	<script src="js/interact.js"></script>
+	<script src="js/jquery-ui.min.js"></script>
 
 	<script src="js/common.js"></script>	
 
