@@ -319,38 +319,40 @@
 					<!-- Збірна шина -->
 					<div role="tabpanel" class="tab-pane" id="shina1" data-type="shina">		
 						<p><b>Збірна шина</b></p>
-	
-						<button type="button" id="btn_shina" class="btn btn-default disabled">Змінити розмір</button>
+						<div class="input-group">
+						<span class="input-group-addon" id="basic-addon8">U</span>
+							<input type="text" class="form-control" data-param="U" aria-describedby="basic-addon8">
+						</div>
 					</div>
 					<!-- Провідник горизонтальний-->
 					<div role="tabpanel" class="tab-pane" id="conductor-g" data-type="conductor-g">		
-						<p><b>Провідник горизонтальний</b></p>
-						<span>Розмір:</span>
-
-						<div id="btn_cond_g" class="btn-group" role="group">
-							<button type="button" class="btn btn-default">+</button>
-							<button type="button" class="btn btn-default">-</button>
-						</div>
-
+						<p>Провідник горизонтальний</p>
+						<svg class="" width="100px" height="25px">
+							<line x1="0" y1="12" x2="1000" y2="12" style="stroke-width: 1.8; stroke: black;"></line>
+						</svg>
 					</div>
 
 					<!-- Провідник вертикальний-->
 					<div role="tabpanel" class="tab-pane" id="conductor-v" data-type="conductor-v">		
-						<p><b>Провідник вертикальний</b></p>
-						<span>Розмір:</span>
-
-						<div id="btn_cond_v" class="btn-group" role="group">
-							<button type="button" class="btn btn-default">+</button>
-							<button type="button" class="btn btn-default">-</button>
-						</div>
-
+						<p>Провідник вертикальний</p>
+						<svg class="" width="25px" height="50px">
+							<line x1="12" y1="0" x2="12" y2="1000" style="stroke-width: 1.8; stroke: black;"></line>
+						</svg>
 					</div>
 					<!-- END 3th TAB -->	
 
 				</div>
 				<hr>
 				<!-- END Item Data -->
+
+				<span>Розмір:</span>
+				<div id="btn_size" class="btn-group" role="group">
+					<button type="button" class="btn btn-default">+</button>
+					<button type="button" class="btn btn-default">-</button>
+				</div>
+
 			 	<button type="button" id="btn_add" class="btn btn-default">Додати</button>
+			 	<button type="button" id="btn_res" class="btn btn-default">Розрахувати</button>
 			 	<hr>
 			 	<!-- Results -->
 			 	<div id="results">
@@ -358,7 +360,7 @@
 			 		<div id="Items_list">
 			 			
 			 		</div>
-
+			 		
 			 	</div>
 			 	<!-- END Results -->
 

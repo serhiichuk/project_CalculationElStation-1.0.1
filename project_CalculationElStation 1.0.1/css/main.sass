@@ -73,12 +73,17 @@ body
 .tab-pane > p
 	margin: 5px
 
-#btn_add
-	margin-left: 25%
-	width: 50%
+#btn_res
+	margin-right: 5%
+	width: 35%
+	float: right
 	color: #fff
 	background-color: $blue
 	font-weight: bold
+
+#btn_add
+	margin-left: 15px
+	background-color: #e0e0e0
 
 #btn_shina
 	margin-top: 10px
@@ -86,53 +91,24 @@ body
 	padding: 6px
 	font-size: 12px
 
-#resizable
+.resizable_def
+	padding-top: 4px
+	font-size: 12px
 	text-align: center
-	margin: 5px
-	width: 80%
-	height: 25px
-	border: solid 2px
-
-.resizable_def, .resizable_custom
-	position: relative
+	z-index: 2
+	background-color: #fff
+	position: absolute
 	width: 100px
 	height: 25px
-	border: solid 2px
-	top: 35px
-	left: 95px
-
-.ui-resizable-s, .ui-resizable-se
-	cursor: default
-
-.ui-resizable-e 
-	display: block !important
-	width: 16px
-	right: -10px
-	top: -6px
-	height: 150%
-
-.ui-resizable-cont
-	&:before
-		content: '<'
-		position: absolute
-		top: -3px
-		right: 3px
-		color: $red
-		font-size: 20px
-	&:after
-		content: '>'
-		position: absolute
-		top: -3px
-		right: -15px
-		color: $red
-		font-size: 20px	
+	outline: solid 1px
 
 #Items_list p
 	position: relative
 	margin: 0
 	margin-left: 5px
 	font-size: 12px
-	padding: 3px
+	padding: 3px 
+
 .del
 	transition: all .3s
 	position: absolute
@@ -147,11 +123,16 @@ body
 .active_item
 	background-color: rgba(51, 122, 183, 0.16)
 
-#conductor-v, #conductor-g
-	span
-		margin-left: 5px
-	.btn
-		padding: 5px 10px
+.active_item_on_wp
+	outline: dotted 2px $accent
 
+.items-space 
+	> span, #btn_size
+		margin-left: 10px
+	
+#conductor-g, #conductor-v
+	svg
+		margin-left: 10px
+		margin-top: 10px
 // ------------always END-----------
 @import "media"

@@ -49,7 +49,7 @@ interact('.item_icon')
 // ------------------------------------------ end initial --------------------------------------
 
 var Elements = {};
-var count_t = 1, count_g = 1, count_c = 1;;
+var count_t = 0, count_g = 0, count_c = 0, count_s = 0;
 
 $( document ).ready(function() {
 
@@ -62,31 +62,34 @@ $( document ).ready(function() {
          
     switch(type) {
       case 'generator': var name = ''+ id + '-'+ count_g++ +''; 
-        $('#_work_space').append('<div class="item_icon" data-name="'+ name +'"><img src="img/items/generator.svg"/></div>');
-        addToItemsList (name_item, name)
+        $('#_work_space').append('<div class="item_icon" data-type="'+ type +'" data-name="'+ name +'"><img src="img/items/generator.svg"/></div>');
+        addToItemsList (name_item, name, type, count_g);
+
       break;
 
       case 'transformator': var name = ''+ id + '-'+ count_t++ +'';
-        $('#_work_space').append('<div class="item_icon" data-name="'+ name +'"><img src="img/items/t2.svg"/></div>');
-        addToItemsList (name_item, name)
+        $('#_work_space').append('<div class="item_icon" data-type="'+ type +'" data-name="'+ name +'"><img src="img/items/t2.svg"/></div>');
+        addToItemsList (name_item, name, type, count_t);
+
       break;
 
-      case 'shina': var name = ''+ id + '-'+ count_c++ +'';
-        $('#_work_space').append('<div class="item_icon resizable_def" data-name="'+ name +'"></div>');
+      case 'shina': var name = ''+ id + '-'+ count_s++ +'';
+        $('#_work_space').append('<div class="item_icon resizable_def" data-type="'+ type +'" data-name="'+ name +'">РУ - '+ count_s +'</div>');
         $('#btn_shina').addClass('btn_change')
         $('#btn_shina').removeClass('disabled');
-        addToItemsList (name_item, name)
+        addToItemsList (name_item, name, type, count_s);
+
       break;
 
       case 'conductor-v': var name = ''+ id + '-'+ count_c++ +'';
-        $('#_work_space').append('<svg class="item_icon svg-v" data-name="'+ name +'" width="25px" height="50px"><line x1="12" y1="0" x2="12" y2="1000" style="stroke-width: 1.8; stroke: black;"></line></svg>');
-        addToItemsList (name_item, name)
+        $('#_work_space').append('<svg class="item_icon svg-v" data-type="'+ type +'" data-name="'+ name +'" width="25px" height="50px"><line x1="12" y1="0" x2="12" y2="1000" style="stroke-width: 1.8; stroke: black;"></line></svg>');
+        addToItemsList (name_item, name, type, count_c);
 
       break;
 
       case 'conductor-g': var name = ''+ id + '-'+ count_c++ +'';
-        $('#_work_space').append('<svg class="item_icon svg-g" data-name="'+ name +'" width="50px" height="25px"><line x1="0" y1="12" x2="1000" y2="12" style="stroke-width: 1.8; stroke: black;"></line></svg>');
-        addToItemsList (name_item, name)
+        $('#_work_space').append('<svg class="item_icon svg-g" data-type="'+ type +'" data-name="'+ name +'" width="50px" height="25px"><line x1="0" y1="12" x2="1000" y2="12" style="stroke-width: 1.8; stroke: black;"></line></svg>');
+        addToItemsList (name_item, name, type, count_c);
 
       break;
     }
@@ -101,39 +104,54 @@ $( document ).ready(function() {
       
     });
   });
+  //----------------------------------------------------------
 
-// change size in SHINA
-  $('.items-space').on('click','.btn_change', function () {
-    if ( $('.resizable_def').hasClass('resizable_custom') ) {
-      $('.resizable_def').removeClass('resizable_custom');
-      $('.resizable_def').removeClass('ui-resizable-cont');
-      $('.resizable_def').addClass('item_icon');
-      $('.resizable_def').css('border', 'solid 2px');
-      $('.btn_change').css({'background-color': '#fff', 'color': '#000'} );
-    } else {
-      $('.resizable_def').addClass('resizable_custom');
-      $('.resizable_def').removeClass('item_icon');
-      $('.resizable_def').css('border', 'dashed 2px');
-      $('.btn_change').css({'background-color': '#337ab7', 'color': '#fff'} );
-    }
-  });
 
-//delegate resistable blocks
-  $('body').on('click','.resizable_custom', function() {
-    $(this).css('border', 'dashed 2px #337ab7' );
-    
-    $(this).addClass('ui-resizable-cont');
-    $(this).resizable({
-      grid: [25.4,  25],
-      maxHeight: "25",
-      minWidth: "50",
-      autoHide: 'true'     
+
+  $('#btn_res').on('click', function() {
+    var Element_list = $('#_work_space').children();
+    // console.log(Element_list);
+    $.each(Element_list, function(i) {
+      var type = $(Element_list[i]).attr('data-type');
+      var name = $(Element_list[i]).attr('data-name');
+   
+      if (type == 'transformator') {
+        var x = $(Element_list[i]).attr('data-x');
+        var y = $(Element_list[i]).attr('data-y');
+        var h = 37.5;
+
+        Elements[name].inp_1_x = +x; 
+        Elements[name].inp_2_x = +x; 
+        Elements[name].inp_1_y = +y - h; 
+        Elements[name].inp_2_y = +y + h; 
+      }
+   
+      if (type == 'generator') {
+        var x = $(Element_list[i]).attr('data-x');
+        var y = $(Element_list[i]).attr('data-y');
+        var h = 37.5;
+
+        Elements[name].inp_1_x = +x; 
+        Elements[name].inp_2_x = 0; 
+        Elements[name].inp_1_y = +y - h; 
+        Elements[name].inp_2_y = 0; 
+      }
+
+      if (type == 'shina') {
+        var x = $(Element_list[i]).attr('data-x');
+        var y = $(Element_list[i]).attr('data-y');
+        var w = $(Element_list[i]).width();
+        Elements[name].inp_y = +y - 37.5; 
+        Elements[name].inp_1_x = +x;
+        Elements[name].inp_2_x = +x + w; 
+      }
     });
+    
   });
 
 // Delete Elements
   $('body').on('click','.del', function() {
-    var element = $(this).attr('data-name');
+    var element = $(this).parent().attr('data-name');
     delete Elements[element];
 
     $(this).parent().remove();
@@ -145,41 +163,53 @@ $( document ).ready(function() {
     showCurrentItem (this);
   });
 
+  $('#Items_list').on('click','p', function() {
+    showCurrentItem (this);
+  });
+
+  $('.tab-content').on('click', function() {
+    $('#Items_list > p').removeClass('active_item');
+    $('#_work_space > .item_icon').removeClass('active_item_on_wp');
+  });
+
 // Change conductor size ----------------------------------
-  $('#btn_cond_v > .btn').on('click', function() {
-    var item = $('.active_item > span').attr('data-name');
-    var val = $('#_work_space > [data-name = ' + item +']').height();
+  $('#btn_size > .btn').on('click', function() {
+    var item = $('.active_item').attr('data-name');
+    var type = $('.active_item').attr('data-type');
+
+    if ( type == 'conductor-g' || type == 'shina' ) {
+      var val = $('#_work_space > [data-name = ' + item +']').width();
+
+      if ( $(this).text() == '+' && val < 500)
+        $('#_work_space > [data-name = ' + item +']').width(val+25);
+
+      if ( $(this).text() == '-' && val > 25)
+        $('#_work_space > [data-name = ' + item +']').width(val-25);  
+
+    } else if ( type == 'conductor-v') {
+      var val = $('#_work_space > [data-name = ' + item +']').height();
 
       if ( $(this).text() == '+' && val < 500)
         $('#_work_space > [data-name = ' + item +']').height(val+25);
 
       if ( $(this).text() == '-' && val > 25)
-        $('#_work_space > [data-name = ' + item +']').height(val-25);    
+        $('#_work_space > [data-name = ' + item +']').height(val-25);       
+    }
   });
-
-  $('#btn_cond_g > .btn').on('click', function() {
-    var item = $('.active_item > span').attr('data-name');
-    var val = $('#_work_space > [data-name = ' + item +']').width();
-
-    if ( $(this).text() == '+' && val < 500)
-      $('#_work_space > [data-name = ' + item +']').width(val+25);
-
-    if ( $(this).text() == '-' && val > 25)
-      $('#_work_space > [data-name = ' + item +']').width(val-25);    
-  });
-//---------------------------------------------------------------------
 
 
 });
 //-----------------------------END--------------------------
 
-function addToItemsList (name_item, data) {
-  $('#Items_list').append('<p>'+ name_item +'<span class="del" data-name="'+ data +'"></span></p>');
+function addToItemsList (name_item, data, type, num) {
+  $('#Items_list').append('<p data-type="'+ type +'" data-name="'+ data +'">'+ name_item +' №'+ num +'<span class="del"></span></p>');
 }
 
 function showCurrentItem (item) {
   $('#Items_list > p').removeClass('active_item');
+  $('#_work_space > .item_icon').removeClass('active_item_on_wp');
+
   item = $(item).attr('data-name');
-  $('#Items_list > p > [data-name = ' + item +']').parent().addClass('active_item');
-  
+  $('#Items_list > [data-name = ' + item +']').addClass('active_item');
+  $('#_work_space > [data-name = ' + item +']').addClass('active_item_on_wp');
 }

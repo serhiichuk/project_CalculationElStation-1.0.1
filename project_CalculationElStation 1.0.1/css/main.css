@@ -68,12 +68,17 @@ body {
 .tab-pane > p {
   margin: 5px; }
 
-#btn_add {
-  margin-left: 25%;
-  width: 50%;
+#btn_res {
+  margin-right: 5%;
+  width: 35%;
+  float: right;
   color: #fff;
   background-color: #337ab7;
   font-weight: bold; }
+
+#btn_add {
+  margin-left: 15px;
+  background-color: #e0e0e0; }
 
 #btn_shina {
   margin-top: 10px;
@@ -81,46 +86,16 @@ body {
   padding: 6px;
   font-size: 12px; }
 
-#resizable {
+.resizable_def {
+  padding-top: 4px;
+  font-size: 12px;
   text-align: center;
-  margin: 5px;
-  width: 80%;
-  height: 25px;
-  border: solid 2px; }
-
-.resizable_def, .resizable_custom {
-  position: relative;
+  z-index: 2;
+  background-color: #fff;
+  position: absolute;
   width: 100px;
   height: 25px;
-  border: solid 2px;
-  top: 35px;
-  left: 95px; }
-
-.ui-resizable-s, .ui-resizable-se {
-  cursor: default; }
-
-.ui-resizable-e {
-  display: block !important;
-  width: 16px;
-  right: -10px;
-  top: -6px;
-  height: 150%; }
-
-.ui-resizable-cont:before {
-  content: '<';
-  position: absolute;
-  top: -3px;
-  right: 3px;
-  color: #dc475b;
-  font-size: 20px; }
-
-.ui-resizable-cont:after {
-  content: '>';
-  position: absolute;
-  top: -3px;
-  right: -15px;
-  color: #dc475b;
-  font-size: 20px; }
+  outline: solid 1px; }
 
 #Items_list p {
   position: relative;
@@ -147,17 +122,26 @@ body {
 .active_item {
   background-color: rgba(51, 122, 183, 0.16); }
 
-#conductor-v span, #conductor-g span {
-  margin-left: 5px; }
+.active_item_on_wp {
+  outline: dotted 2px #80cbc4; }
 
-#conductor-v .btn, #conductor-g .btn {
-  padding: 5px 10px; }
+.items-space > span, .items-space #btn_size {
+  margin-left: 10px; }
+
+#conductor-g svg, #conductor-v svg {
+  margin-left: 10px;
+  margin-top: 10px; }
 
 /*==========  Desktop First  ==========*/
 /* Large Devices, Wide Screens */
 @media only screen and (max-width: 1200px) {
   .input-group {
-    width: 90%; } }
+    width: 90%; }
+  #btn_res {
+    float: none;
+    margin-top: 20px;
+    margin-left: 25%;
+    width: 50%; } }
 
 /* Medium Devices, Desktops */
 @media only screen and (max-width: 992px) {
@@ -166,7 +150,14 @@ body {
 /* Small Devices, Tablets */
 @media only screen and (max-width: 768px) {
   .input-group {
-    width: 45%; } }
+    width: 45%; }
+  #btn_res {
+    float: right;
+    margin: 0;
+    margin-right: 25px;
+    width: 35%; }
+  .container {
+    width: 95%; } }
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width: 480px) {
