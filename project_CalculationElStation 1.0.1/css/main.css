@@ -32,9 +32,13 @@ body {
   .item_icon img {
     width: 30px; }
 
-.svg {
+.svg-g {
   top: 198px;
   left: 35px; }
+
+.svg-v {
+  top: 210px;
+  left: 23px; }
 
 .items-space {
   margin: 0;
@@ -142,6 +146,12 @@ body {
 
 .active_item {
   background-color: rgba(51, 122, 183, 0.16); }
+
+#conductor-v span, #conductor-g span {
+  margin-left: 5px; }
+
+#conductor-v .btn, #conductor-g .btn {
+  padding: 5px 10px; }
 
 /*==========  Desktop First  ==========*/
 /* Large Devices, Wide Screens */

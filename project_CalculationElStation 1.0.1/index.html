@@ -53,12 +53,14 @@
 					</li>
 <!--**********************Шини*********************-->
 					<li role="presentation" class="dropdown">
-						<a href="#" id="myTabDrop2" class="dropdown-toggle" data-toggle="dropdown" aria-controls="myTabDrop2-contents" aria-expanded="true">Шини</a>
+						<a href="#" id="myTabDrop2" class="dropdown-toggle" data-toggle="dropdown" aria-controls="myTabDrop2-contents" aria-expanded="true">Шини та проовідники</a>
 
 						<ul class="dropdown-menu" aria-labelledby="myTabDrop3" id="myTabDrop3-contents">
 							<li role="presentation"><a href="#shina1" aria-controls="shina1" role="tab" data-toggle="tab">Збірна шина</a></li>
 
-							<li role="presentation"><a href="#conductor" aria-controls="conductor" role="tab" data-toggle="tab">Провідник</a></li>
+							<li role="presentation"><a href="#conductor-g" aria-controls="conductor-g" role="tab" data-toggle="tab">Провідник горизонтальний</a></li>
+
+							<li role="presentation"><a href="#conductor-v" aria-controls="conductor-v" role="tab" data-toggle="tab">Провідник вертикальний</a></li>
 						</ul>
 
 					</li>
@@ -316,15 +318,32 @@
 				<!-- Шини TAB -->
 					<!-- Збірна шина -->
 					<div role="tabpanel" class="tab-pane" id="shina1" data-type="shina">		
-						<p>Збірна шина</p>
+						<p><b>Збірна шина</b></p>
 	
 						<button type="button" id="btn_shina" class="btn btn-default disabled">Змінити розмір</button>
 					</div>
-					<!-- Провідник -->
-					<div role="tabpanel" class="tab-pane" id="conductor" data-type="conductor">		
-						<p>Провідник звичайний</p>
+					<!-- Провідник горизонтальний-->
+					<div role="tabpanel" class="tab-pane" id="conductor-g" data-type="conductor-g">		
+						<p><b>Провідник горизонтальний</b></p>
+						<span>Розмір:</span>
 
-<!-- 						<button type="button" id="btn_shina" class="btn btn-default disabled">Змінити розмір</button> -->
+						<div id="btn_cond_g" class="btn-group" role="group">
+							<button type="button" class="btn btn-default">+</button>
+							<button type="button" class="btn btn-default">-</button>
+						</div>
+
+					</div>
+
+					<!-- Провідник вертикальний-->
+					<div role="tabpanel" class="tab-pane" id="conductor-v" data-type="conductor-v">		
+						<p><b>Провідник вертикальний</b></p>
+						<span>Розмір:</span>
+
+						<div id="btn_cond_v" class="btn-group" role="group">
+							<button type="button" class="btn btn-default">+</button>
+							<button type="button" class="btn btn-default">-</button>
+						</div>
+
 					</div>
 					<!-- END 3th TAB -->	
 

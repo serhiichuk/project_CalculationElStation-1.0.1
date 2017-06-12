@@ -40,7 +40,6 @@ interact('.item_icon')
     target.setAttribute('data-x', x);
     target.setAttribute('data-y', y);
 
-    showCurrentItem (target);
   }
 
   // this is used later in the resizing and gesture demos
@@ -48,9 +47,6 @@ interact('.item_icon')
 
 
 // ------------------------------------------ end initial --------------------------------------
-
-
-
 
 var Elements = {};
 var count_t = 1, count_g = 1, count_c = 1;;
@@ -82,8 +78,14 @@ $( document ).ready(function() {
         addToItemsList (name_item, name)
       break;
 
-      case 'conductor': var name = ''+ id + '-'+ count_c++ +'';
-        $('#_work_space').append('<svg class="item_icon svg" data-name="'+ name +'" width="100px" height="25px"><line x1="0" y1="12" x2="1000" y2="12" style="stroke-width: 1.8; stroke: black;"></line></svg>');
+      case 'conductor-v': var name = ''+ id + '-'+ count_c++ +'';
+        $('#_work_space').append('<svg class="item_icon svg-v" data-name="'+ name +'" width="25px" height="50px"><line x1="12" y1="0" x2="12" y2="1000" style="stroke-width: 1.8; stroke: black;"></line></svg>');
+        addToItemsList (name_item, name)
+
+      break;
+
+      case 'conductor-g': var name = ''+ id + '-'+ count_c++ +'';
+        $('#_work_space').append('<svg class="item_icon svg-g" data-name="'+ name +'" width="50px" height="25px"><line x1="0" y1="12" x2="1000" y2="12" style="stroke-width: 1.8; stroke: black;"></line></svg>');
         addToItemsList (name_item, name)
 
       break;
@@ -138,6 +140,35 @@ $( document ).ready(function() {
     $('#_work_space > [data-name = ' + element +']').remove()
   });
 
+// Show current Item
+  $('#_work_space').on('click','.item_icon', function() {
+    showCurrentItem (this);
+  });
+
+// Change conductor size ----------------------------------
+  $('#btn_cond_v > .btn').on('click', function() {
+    var item = $('.active_item > span').attr('data-name');
+    var val = $('#_work_space > [data-name = ' + item +']').height();
+
+      if ( $(this).text() == '+' && val < 500)
+        $('#_work_space > [data-name = ' + item +']').height(val+25);
+
+      if ( $(this).text() == '-' && val > 25)
+        $('#_work_space > [data-name = ' + item +']').height(val-25);    
+  });
+
+  $('#btn_cond_g > .btn').on('click', function() {
+    var item = $('.active_item > span').attr('data-name');
+    var val = $('#_work_space > [data-name = ' + item +']').width();
+
+    if ( $(this).text() == '+' && val < 500)
+      $('#_work_space > [data-name = ' + item +']').width(val+25);
+
+    if ( $(this).text() == '-' && val > 25)
+      $('#_work_space > [data-name = ' + item +']').width(val-25);    
+  });
+//---------------------------------------------------------------------
+
 
 });
 //-----------------------------END--------------------------
@@ -150,5 +181,5 @@ function showCurrentItem (item) {
   $('#Items_list > p').removeClass('active_item');
   item = $(item).attr('data-name');
   $('#Items_list > p > [data-name = ' + item +']').parent().addClass('active_item');
-  console.log();
+  
 }
