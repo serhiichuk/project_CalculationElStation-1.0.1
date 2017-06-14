@@ -101,16 +101,17 @@ $( document ).ready(function() {
       var value = parameters[i].defaultValue;
     
       Elements[name][parameter] = value;
-      
+      Elements[name].type = type;
+      Elements[name].name = name;
     });
   });
   //----------------------------------------------------------
 
 
-
+// Set coordinates
   $('#btn_res').on('click', function() {
     var Element_list = $('#_work_space').children();
-    // console.log(Element_list);
+
     $.each(Element_list, function(i) {
       var type = $(Element_list[i]).attr('data-type');
       var name = $(Element_list[i]).attr('data-name');
@@ -121,8 +122,8 @@ $( document ).ready(function() {
         var h = 37.5;
 
         Elements[name].inp_1_x = +x; 
-        Elements[name].inp_2_x = +x; 
         Elements[name].inp_1_y = +y - h; 
+        Elements[name].inp_2_x = +x; 
         Elements[name].inp_2_y = +y + h; 
       }
    
@@ -132,8 +133,8 @@ $( document ).ready(function() {
         var h = 37.5;
 
         Elements[name].inp_1_x = +x; 
-        Elements[name].inp_2_x = 0; 
         Elements[name].inp_1_y = +y - h; 
+        Elements[name].inp_2_x = 0; 
         Elements[name].inp_2_y = 0; 
       }
 
@@ -141,13 +142,94 @@ $( document ).ready(function() {
         var x = $(Element_list[i]).attr('data-x');
         var y = $(Element_list[i]).attr('data-y');
         var w = $(Element_list[i]).width();
-        Elements[name].inp_y = +y - 37.5; 
         Elements[name].inp_1_x = +x;
-        Elements[name].inp_2_x = +x + w; 
+        Elements[name].inp_1_y = +y - 37.5;
+        Elements[name].inp_2_y = +y - 12.5; 
+        Elements[name].inp_2_x = +x + w - 25; 
+      }
+
+      if (type == 'conductor-g') {
+        var x = $(Element_list[i]).attr('data-x');
+        var y = $(Element_list[i]).attr('data-y');
+        var w = $(Element_list[i]).width();
+        Elements[name].inp_1_x = +x - 25;
+        Elements[name].inp_1_y = +y - 37.5;
+        Elements[name].inp_2_x = +x + w - 25;
+        Elements[name].inp_2_y = +y - 37.5; 
+      }
+
+      if (type == 'conductor-v') {
+        var x = $(Element_list[i]).attr('data-x');
+        var y = $(Element_list[i]).attr('data-y');
+        var h = $(Element_list[i]).height();
+        Elements[name].inp_1_x = +x - 25;
+        Elements[name].inp_1_y = +y - 37.5;
+        Elements[name].inp_2_x = +x - 25;
+        Elements[name].inp_2_y = +y + h - 37.5; 
+      }
+
+    });
+    // цикл проверки на соединения
+    $.each(Elements, function(i) {
+      var T_G_type = Elements[i].type;
+      var T_G_name = Elements[i].name;
+
+      
+      if ( T_G_type == 'transformator' || T_G_type == 'generator' ) {
+        // присвоение координат Т и Г
+        var T_G_inp1x = Elements[i].inp_1_x;
+        var T_G_inp1y = Elements[i].inp_1_y;
+        var T_G_inp2y = Elements[i].inp_2_y;
+        // перебор шин
+        $.each(Elements, function(j) {
+          var S_С_type = Elements[j].type;
+          var S_С_name = Elements[j].name;
+
+          if ( S_С_type == 'shina' ) {
+            // присвоение координат Шины
+            var S_inp1x = Elements[j].inp_1_x;
+            var S_inp2x = Elements[j].inp_2_x;
+            var S_inp1y = Elements[j].inp_1_y;
+            var S_inp2y = Elements[j].inp_2_y;
+            // проверяем на совпадения по оси Х 
+            if ( T_G_inp1x >= S_inp1x && T_G_inp1x <= S_inp2x ) {
+              // проверяем выход 1 на совпадения по оси Y
+              if (T_G_inp1y == S_inp1y || T_G_inp1y == S_inp2y) {
+                Elements[i].out_1 = S_С_name;
+              };
+              // проверяем выход 2 на совпадения по оси Y
+              if (T_G_inp2y == S_inp1y || T_G_inp2y == S_inp2y) {
+                Elements[i].out_2 = S_С_name;
+              }
+              
+            }
+          // цикл проверки на соединения по проводникам
+          } else if ( S_С_type == 'conductor-g' || S_С_type == 'conductor-v' ) {
+              // присвоение координат Проводника
+              var C_inp1x = Elements[j].inp_1_x;
+              var C_inp2x = Elements[j].inp_2_x;
+              var C_inp1y = Elements[j].inp_1_y;
+              var C_inp2y = Elements[j].inp_2_y;
+
+              // проверяем на совпадения по оси Х 
+              if ( T_G_inp1x >= C_inp1x && T_G_inp1x <= C_inp2x ) {
+              // проверяем выход 1 на совпадения по оси Y
+              if (T_G_inp1y == C_inp1y || T_G_inp1y == C_inp2y) {
+                Elements[i].out_1 = S_С_name;
+              };
+              // проверяем выход 2 на совпадения по оси Y
+              if (T_G_inp2y == S_inp1y || T_G_inp2y == S_inp2y) {
+                Elements[i].out_2 = S_С_name;
+              }
+            }
+          }
+        });
       }
     });
-    
+console.log(Elements);
+
   });
+
 
 // Delete Elements
   $('body').on('click','.del', function() {
