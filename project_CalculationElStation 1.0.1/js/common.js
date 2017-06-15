@@ -49,7 +49,10 @@ interact('.item_icon')
 // ------------------------------------------ end initial --------------------------------------
 
 var Elements = {};
+var keys = [];
 var count_t = 0, count_g = 0, count_c = 0, count_s = 0;
+var Uzel = {};
+var Vetka = {};
 
 $( document ).ready(function() {
 
@@ -59,7 +62,7 @@ $( document ).ready(function() {
     var type = $('.tab-pane.active').attr('data-type');
     var parameters = $('.tab-pane.active > .input-group > input');
     var name_item = $('.tab-pane.active > p').text();   
-         
+    
     switch(type) {
       case 'generator': var name = ''+ id + '-'+ count_g++ +''; 
         $('#_work_space').append('<div class="item_icon" data-type="'+ type +'" data-name="'+ name +'"><img src="img/items/generator.svg"/></div>');
@@ -96,13 +99,14 @@ $( document ).ready(function() {
 
     // Create object width Elements
     Elements[name] = {};
+    Elements[name].name = name;
+    Elements[name].type = type;
     $.each( parameters, function(i){
       var parameter = parameters[i].dataset.param;
       var value = parameters[i].defaultValue;
-    
+
       Elements[name][parameter] = value;
-      Elements[name].type = type;
-      Elements[name].name = name;
+            
     });
   });
   //----------------------------------------------------------
@@ -169,16 +173,18 @@ $( document ).ready(function() {
       }
 
     });
-    // цикл проверки на соединения
+
+    //цикл проверки на соединения
     $.each(Elements, function(i) {
       var T_G_type = Elements[i].type;
       var T_G_name = Elements[i].name;
-
-      
+       
       if ( T_G_type == 'transformator' || T_G_type == 'generator' ) {
+        Vetka[T_G_name] = {};
         // присвоение координат Т и Г
         var T_G_inp1x = Elements[i].inp_1_x;
         var T_G_inp1y = Elements[i].inp_1_y;
+        var T_G_inp2x = Elements[i].inp_2_x;
         var T_G_inp2y = Elements[i].inp_2_y;
         // перебор шин
         $.each(Elements, function(j) {
@@ -191,46 +197,106 @@ $( document ).ready(function() {
             var S_inp2x = Elements[j].inp_2_x;
             var S_inp1y = Elements[j].inp_1_y;
             var S_inp2y = Elements[j].inp_2_y;
+
+            Uzel[S_С_name] = {}
+            Uzel[S_С_name].U = Elements[j].U;
+
             // проверяем на совпадения по оси Х 
             if ( T_G_inp1x >= S_inp1x && T_G_inp1x <= S_inp2x ) {
               // проверяем выход 1 на совпадения по оси Y
               if (T_G_inp1y == S_inp1y || T_G_inp1y == S_inp2y) {
                 Elements[i].out_1 = S_С_name;
-              };
-              // проверяем выход 2 на совпадения по оси Y
-              if (T_G_inp2y == S_inp1y || T_G_inp2y == S_inp2y) {
-                Elements[i].out_2 = S_С_name;
-              }
-              
-            }
-          // цикл проверки на соединения по проводникам
-          } else if ( S_С_type == 'conductor-g' || S_С_type == 'conductor-v' ) {
-              // присвоение координат Проводника
-              var C_inp1x = Elements[j].inp_1_x;
-              var C_inp2x = Elements[j].inp_2_x;
-              var C_inp1y = Elements[j].inp_1_y;
-              var C_inp2y = Elements[j].inp_2_y;
 
-              // проверяем на совпадения по оси Х 
-              if ( T_G_inp1x >= C_inp1x && T_G_inp1x <= C_inp2x ) {
-              // проверяем выход 1 на совпадения по оси Y
-              if (T_G_inp1y == C_inp1y || T_G_inp1y == C_inp2y) {
-                Elements[i].out_1 = S_С_name;
+                if (T_G_type == 'transformator') {
+                  Vetka[T_G_name].R = Elements[i].Ukz;
+                  Vetka[T_G_name].out_1 = S_С_name;
+                }
+                if (T_G_type == 'generator') {
+                  Vetka[T_G_name].R = Elements[i].Xd;
+                  Vetka[T_G_name].out_1 = S_С_name;
+                }
               };
               // проверяем выход 2 на совпадения по оси Y
               if (T_G_inp2y == S_inp1y || T_G_inp2y == S_inp2y) {
                 Elements[i].out_2 = S_С_name;
+               
+                if (T_G_type == 'transformator') {
+                  Vetka[T_G_name].R = Elements[i].Ukz;
+                  Vetka[T_G_name].out_2 = S_С_name;
+                }
+                if (T_G_type == 'generator') {
+                  Vetka[T_G_name].R = Elements[i].Xd;
+                  Vetka[T_G_name].out_2 = S_С_name;
+                }
               }
-            }
-          }
+            };
+          };
+
+          // // цикл проверки на соединения по проводникам
+          // if ( S_С_type == 'conductor-g' || S_С_type == 'conductor-v' ) {
+
+          //   // присвоение координат Проводника
+          //   var C_inp1x = Elements[j].inp_1_x;
+          //   var C_inp2x = Elements[j].inp_2_x;
+          //   var C_inp1y = Elements[j].inp_1_y;
+          //   var C_inp2y = Elements[j].inp_2_y;
+
+          //   if ( (T_G_inp1x == C_inp1x) && (T_G_inp1y == C_inp1y) ) {
+          //     Elements[j].out_1 = T_G_name;
+          //     Elements[i].out_1 = S_С_name;
+          //   } else if ( (T_G_inp1x == C_inp2x) && (T_G_inp1y == C_inp2y) ) {
+          //     Elements[j].out_1 = T_G_name;
+          //     Elements[i].out_1 = S_С_name;
+          //   };
+
+          //   if ( T_G_inp2x == C_inp1x && T_G_inp2y == C_inp1y ) {
+          //     Elements[j].out_2 = T_G_name;
+          //     Elements[i].out_2 = S_С_name;
+          //   } else if ( T_G_inp2x == C_inp2x && T_G_inp2y == C_inp2y ) {
+          //     Elements[j].out_2 = T_G_name;
+          //     Elements[i].out_2 = S_С_name;        
+          //   };
+          // };  
         });
       }
     });
-console.log(Elements);
 
+    console.log(Elements);
+    console.log(Uzel);
+    console.log(Vetka);
+    
+    var counterU = 0;
+    var counterV = 0;
+    for (var key in Uzel) {
+      counterU++;
+    }
+    for (var key in Vetka) {
+      counterV++;
+    }
+
+
+    var arr = new Array();
+
+    for(var i=0; i < counterU-1; i++){
+      arr[i] = new Array();
+      for(var j=0; j< counterV-1; j++){
+      arr[i][j] = i+j+1;
+    }
+  }
+    console.log(arr);
   });
-
-
+function matrixArray(rows,columns){
+  var arr = new Array();
+  for(var i=0; i<columns; i++){
+    arr[i] = new Array();
+    for(var j=0; j<rows; j++){
+      arr[i][j] = i+j+1;//вместо i+j+1 пишем любой наполнитель. В простейшем случае - null
+    }
+  }
+  return arr;
+}
+var myMatrix = matrixArray(3,3);
+console.log(myMatrix);
 // Delete Elements
   $('body').on('click','.del', function() {
     var element = $(this).parent().attr('data-name');
