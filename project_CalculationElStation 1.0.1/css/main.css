@@ -1,9 +1,9 @@
 * {
   padding: 0;
   margin: 0;
-  -webkit-transition: all .05s;
-  -o-transition: all .05s;
-  transition: all .05s; }
+  -webkit-transition: all .02s;
+  -o-transition: all .02s;
+  transition: all .02s; }
 
 body {
   font-family: 'Roboto', sans-serif;
@@ -73,7 +73,7 @@ body {
   width: 35%;
   float: right;
   color: #fff;
-  background-color: #337ab7;
+  background-color: #47769e;
   font-weight: bold; }
 
 #btn_add {
@@ -109,7 +109,7 @@ body {
   -o-transition: all .3s;
   transition: all .3s;
   position: absolute;
-  margin-left: 10px;
+  margin-left: 25px;
   background-image: url(..//img/close.svg);
   width: 15px;
   height: 15px;
@@ -131,6 +131,44 @@ body {
 #conductor-g svg, #conductor-v svg {
   margin-left: 10px;
   margin-top: 10px; }
+
+#matrix_A {
+  margin-left: 10px;
+  display: inline-block; }
+
+.matrix {
+  margin-bottom: 25px;
+  padding: 5px;
+  padding-bottom: 0px;
+  border-right: solid 1px;
+  border-left: solid 1px; }
+  .matrix p {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    text-align: center;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between; }
+    .matrix p span {
+      padding: 0 5px; }
+
+.mode {
+  margin-left: 10px; }
+  .mode .btn {
+    padding: 5px;
+    font-size: 12px; }
+
+.active-mode {
+  color: #fff;
+  background-color: #47769e; }
+
+.check {
+  position: absolute;
+  top: 0px;
+  margin-left: 5px; }
 
 /*==========  Desktop First  ==========*/
 /* Large Devices, Wide Screens */

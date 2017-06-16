@@ -49,14 +49,12 @@ interact('.item_icon')
 // ------------------------------------------ end initial --------------------------------------
 
 var Elements = {};
-var keys = [];
 var count_t = 0, count_g = 0, count_c = 0, count_s = 0;
-var Uzel = {};
-var Vetka = {};
+
 
 $( document ).ready(function() {
 
-// Add element to work space and create objects
+  // Add element to work space and create objects
   $('#btn_add').on('click', function () {
     var id = $('.tab-pane.active').attr('id');
     var type = $('.tab-pane.active').attr('data-type');
@@ -105,16 +103,18 @@ $( document ).ready(function() {
       var parameter = parameters[i].dataset.param;
       var value = parameters[i].defaultValue;
 
-      Elements[name][parameter] = value;
+      Elements[name][parameter] = parseFloat(value);
             
     });
   });
   //----------------------------------------------------------
 
 
-// Set coordinates
+  // Set coordinates
   $('#btn_res').on('click', function() {
-    var Element_list = $('#_work_space').children();
+    var Element_list = $('#_work_space').children();   
+    var Uzel = {};
+    var Vetka = {};
 
     $.each(Element_list, function(i) {
       var type = $(Element_list[i]).attr('data-type');
@@ -200,6 +200,7 @@ $( document ).ready(function() {
 
             Uzel[S_С_name] = {}
             Uzel[S_С_name].U = Elements[j].U;
+            Uzel[S_С_name].name = S_С_name;
 
             // проверяем на совпадения по оси Х 
             if ( T_G_inp1x >= S_inp1x && T_G_inp1x <= S_inp2x ) {
@@ -261,42 +262,87 @@ $( document ).ready(function() {
       }
     });
 
-    console.log(Elements);
-    console.log(Uzel);
-    console.log(Vetka);
-    
-    var counterU = 0;
-    var counterV = 0;
-    for (var key in Uzel) {
-      counterU++;
-    }
-    for (var key in Vetka) {
-      counterV++;
-    }
+    // ----------matrix A -----------------------------------
+    var html = '<p><b>Матриця А:</b></p><div class="matrix matrix-a">';
+    var arr_A = new Array();
+    var r = 0;
+  
+    $.each(Uzel, function(i) {
 
+      var arr_r = new Array();
+      var n = 0;
+      html += '<p>'
+      $.each(Vetka, function(j) {
+        
+        if (Uzel[i].name == Vetka[j].out_1) {
+          arr_r[n] = 1;
+        } else if (Uzel[i].name == Vetka[j].out_2) {
+          arr_r[n] = -1;
+        } else {
+          arr_r[n] = 0;
+        } 
+        arr_A[r] = (arr_r);
+        html += '<span>'+ arr_r[n] +'</span>'
+        n++;
+      });
+      html += '</p>'
+      r++;
+    });
+    html += '</div>';
 
-    var arr = new Array();
+    // ------------matrix Zb -------------
+    var arr_Zb = new Array();
+    r = 0;
+    html += '<p><b>Матриця Z<sub>B</sub>:</b></p><div class="matrix matrix-zb">'
+    $.each(Vetka, function(i) {
+      html += '<p>'
+      var arr_r = new Array();
+      var n = 0;
 
-    for(var i=0; i < counterU-1; i++){
-      arr[i] = new Array();
-      for(var j=0; j< counterV-1; j++){
-      arr[i][j] = i+j+1;
-    }
-  }
-    console.log(arr);
+      $.each(Vetka, function(j) {
+
+        if (r == n) {
+          arr_r[n] = Vetka[j].R;
+        } else {
+          arr_r[n] = 0;
+        } 
+        arr_Zb[r] = (arr_r);
+        html += '<span>'+ arr_r[n] +'</span>'
+        n++;
+      });
+      html += '</p>'
+      r++;
+    });
+    html += '</div>';
+  
+    // ---------matrix Zy = (A*Zb^-1*A^t)^-1 --------------------------------------------
+  
+    var Zb_ob = InverseMatrix(arr_Zb);
+    // console.log('Zb -1 ',Zb_ob);
+    var AZb_ob = MultiplyMatrix(arr_A, Zb_ob);
+    // console.log('A*Zb-1 ',AZb_ob);
+    var A_t = TransMatrix(arr_A);
+    // console.log('At ',A_t)
+    var AZb_obA_t = MultiplyMatrix (AZb_ob, A_t);
+    // console.log('A*Zb-1*At ',AZb_obA_t);
+    var Zy = InverseMatrix(AZb_obA_t);
+    // console.log('Zy -1 ',Zy);
+
+    html += '<p><b>Матриця Z<sub>y</sub>:</b></p><div class="matrix matrix-zy">'
+
+    $.each(Zy, function(i){
+      html += '<p>';
+      $.each(Zy, function(j){
+        html += '<span>'+ Zy[i][j].toFixed(3) +'</span>';
+      });
+      html += '</p>';
+    });
+
+  // display result
+    $('#matrix_A').html(html);
   });
-function matrixArray(rows,columns){
-  var arr = new Array();
-  for(var i=0; i<columns; i++){
-    arr[i] = new Array();
-    for(var j=0; j<rows; j++){
-      arr[i][j] = i+j+1;//вместо i+j+1 пишем любой наполнитель. В простейшем случае - null
-    }
-  }
-  return arr;
-}
-var myMatrix = matrixArray(3,3);
-console.log(myMatrix);
+//-------------------------------------------------------------------------
+
 // Delete Elements
   $('body').on('click','.del', function() {
     var element = $(this).parent().attr('data-name');
@@ -345,12 +391,23 @@ console.log(myMatrix);
     }
   });
 
+  // Change mode -----------------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  $('body').on('click', '.active_item', function() {
+    var chek = $(''+$(this)+'> .check');
+    // if $(this > '.check') {
+    console.log(chek);
+    // }
+  });
 
 });
 //-----------------------------END--------------------------
 
 function addToItemsList (name_item, data, type, num) {
-  $('#Items_list').append('<p data-type="'+ type +'" data-name="'+ data +'">'+ name_item +' №'+ num +'<span class="del"></span></p>');
+  if ( type == 'shina') {
+    $('#Items_list').append('<p data-type="'+ type +'" data-name="'+ data +'">'+ name_item +' №'+ num +'   КЗ: <input id="'+ name_item +'" class="check" type="checkbox" aria-label="..."><span class="del"></span></p>');
+  } else {
+    $('#Items_list').append('<p data-type="'+ type +'" data-name="'+ data +'">'+ name_item +' №'+ num +'<span class="del"></span></p>');
+  }
 }
 
 function showCurrentItem (item) {
@@ -360,4 +417,146 @@ function showCurrentItem (item) {
   item = $(item).attr('data-name');
   $('#Items_list > [data-name = ' + item +']').addClass('active_item');
   $('#_work_space > [data-name = ' + item +']').addClass('active_item_on_wp');
+}
+
+//Транспонування матриць
+function TransMatrix(A)     
+{
+    var m = A.length, n = A[0].length, AT = [];
+    for (var i = 0; i < n; i++)
+     { AT[i] = [];
+       for (var j = 0; j < m; j++) AT[i][j] = A[j][i];
+     }
+    return AT;
+}
+
+//Додавання матриць
+function SumMatrix(A,B)       
+{   
+    var m = A.length, n = A[0].length, C = [];
+    for (var i = 0; i < m; i++)
+     { C[i] = [];
+       for (var j = 0; j < n; j++) C[i][j] = A[i][j]+B[i][j];
+     }
+    return C;
+}
+
+//Множення матриці на число
+function multMatrixNumber(a,A)  // a - число, A - матриця 
+{   
+    var m = A.length, n = A[0].length, B = [];
+    for (var i = 0; i < m; i++)
+     { B[i] = [];
+       for (var j = 0; j < n; j++) B[i][j] = a*A[i][j];
+     }
+    return B;
+}
+//Множення матриць
+function MultiplyMatrix(A,B)
+{
+    var rowsA = A.length, colsA = A[0].length,
+        rowsB = B.length, colsB = B[0].length,
+        C = [];
+    if (colsA != rowsB) return false;
+    for (var i = 0; i < rowsA; i++) C[i] = [];
+    for (var k = 0; k < colsB; k++)
+     { for (var i = 0; i < rowsA; i++)
+        { var t = 0;
+          for (var j = 0; j < rowsB; j++) t += A[i][j]*B[j][k];
+          C[i][k] = t;
+        }
+     }
+    return C;
+}
+
+//Піднесення матриці в степінь
+function MatrixPow(n,A)
+{ 
+    if (n == 1) return A;    
+    else return MultiplyMatrix( A, MatrixPow(n-1,A) );
+}
+
+//Визначник матриці
+function Determinant(A)   //алгоритм Барейса
+{
+    var N = A.length, B = [], denom = 1, exchanges = 0;
+    for (var i = 0; i < N; ++i)
+     { B[i] = [];
+       for (var j = 0; j < N; ++j) B[i][j] = A[i][j];
+     }
+    for (var i = 0; i < N-1; ++i)
+     { var maxN = i, maxValue = Math.abs(B[i][i]);
+       for (var j = i+1; j < N; ++j)
+        { var value = Math.abs(B[j][i]);
+          if (value > maxValue){ maxN = j; maxValue = value; }
+        }
+       if (maxN > i)
+        { var temp = B[i]; B[i] = B[maxN]; B[maxN] = temp;
+          ++exchanges;
+        }
+       else { if (maxValue == 0) return maxValue; }
+       var value1 = B[i][i];
+       for (var j = i+1; j < N; ++j)
+        { var value2 = B[j][i];
+          B[j][i] = 0;
+          for (var k = i+1; k < N; ++k) B[j][k] = (B[j][k]*value1-B[i][k]*value2)/denom;
+        }
+       denom = value1;
+     }
+    if (exchanges%2) return -B[N-1][N-1];
+    else return B[N-1][N-1];
+}
+
+//Ранг матриці
+function MatrixRank(A)
+{
+    var m = A.length, n = A[0].length, k = (m < n ? m : n), r = 1, rank = 0;
+    while (r <= k)
+     { var B = [];
+       for (var i = 0; i < r; i++) B[i] = [];
+       for (var a = 0; a < m-r+1; a++)
+        { for (var b = 0; b < n-r+1; b++)
+           { for (var c = 0; c < r; c++)
+              { for (var d = 0; d < r; d++) B[c][d] = A[a+c][b+d]; }
+             if (Determinant(B) != 0) rank = r;
+           }       
+        }
+       r++;
+     }
+    return rank;
+}
+
+//Союзна матриця
+function AdjugateMatrix(A)  
+{                                        
+    var N = A.length, adjA = [];
+    for (var i = 0; i < N; i++)
+     { adjA[i] = [];
+       for (var j = 0; j < N; j++)
+        { var B = [], sign = ((i+j)%2==0) ? 1 : -1;
+          for (var m = 0; m < j; m++)
+           { B[m] = [];
+             for (var n = 0; n < i; n++)   B[m][n] = A[m][n];
+             for (var n = i+1; n < N; n++) B[m][n-1] = A[m][n];
+           }
+          for (var m = j+1; m < N; m++)
+           { B[m-1] = [];
+             for (var n = 0; n < i; n++)   B[m-1][n] = A[m][n];
+             for (var n = i+1; n < N; n++) B[m-1][n-1] = A[m][n];
+           }
+          adjA[i][j] = sign*Determinant(B);  
+        }
+     }
+    return adjA;
+}
+
+//Обернена матриця
+function InverseMatrix(A)   
+{   
+    var det = Determinant(A);  
+    if (det == 0) return false;
+    var N = A.length, A = AdjugateMatrix(A);
+    for (var i = 0; i < N; i++)
+     { for (var j = 0; j < N; j++) A[i][j] /= det; }
+    return A;
 }

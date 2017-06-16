@@ -323,6 +323,7 @@
 						<span class="input-group-addon" id="basic-addon9">U</span>
 							<input type="text" class="form-control" data-param="U" value="20" aria-describedby="basic-addon9">
 						</div>
+							
 					</div>
 					<!-- Провідник горизонтальний-->
 					<div role="tabpanel" class="tab-pane" id="conductor-g" data-type="conductor-g">		
@@ -344,7 +345,7 @@
 				</div>
 				<hr>
 				<!-- END Item Data -->
-
+		
 				<span>Розмір:</span>
 				<div id="btn_size" class="btn-group" role="group">
 					<button type="button" class="btn btn-default">+</button>
@@ -354,24 +355,28 @@
 			 	<button type="button" id="btn_add" class="btn btn-default">Додати</button>
 			 	<button type="button" id="btn_res" class="btn btn-default">Розрахувати</button>
 			 	<hr>
+			 	
+			 	<span>Режим розрахунку:</span> 
+			 	<div class="btn-group mode" role="group" aria-label="...">
+			 		<button type="button" class="btn btn-default active-mode">струмів КЗ</button>
+			 		<button type="button" class="btn btn-default disabled">перетоків потужності</button>
+			 		
+			 	</div>
+
 			 	<!-- Results -->
 			 	<div id="results">
 
 			 		<div id="Items_list">
 			 			
 			 		</div>
-			 		
+			 		<hr>
+			 		<div id="matrix_A"></div>
 			 	</div>
 			 	<!-- END Results -->
 
 			</div> 
 		</div>
 	</div>
-
-	
-	
-
-
 
 	<link rel="stylesheet" href="css/jquery-ui.min.css">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
