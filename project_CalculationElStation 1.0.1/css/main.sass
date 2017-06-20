@@ -136,23 +136,23 @@ body
 		margin-left: 10px
 		margin-top: 10px
 
-#matrix_A
-	margin-left: 10px
-	display: inline-block
-
 .matrix
 	margin-bottom: 25px
 	padding: 5px
 	padding-bottom: 0px
 	border-right: solid 1px
 	border-left: solid 1px	
+	display: inline-block
 	p
 		display: flex
 		text-align: center
 		justify-content: space-between
 		span
 			padding: 0 5px
-	
+#matrix_A > p
+	display: table
+	margin-top: 10px
+
 .mode
 	margin-left: 10px
 	.btn
@@ -167,6 +167,9 @@ body
 	position: absolute
 	top: 0px
 	margin-left: 5px
+
+#matrix_A > div.matrix.matrix-a > p:nth-child(1)
+	display: none	
 
 // ------------always END-----------
 @import "media"

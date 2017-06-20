@@ -62,19 +62,19 @@ $( document ).ready(function() {
     var name_item = $('.tab-pane.active > p').text();   
     
     switch(type) {
-      case 'generator': var name = ''+ id + '-'+ count_g++ +''; 
+      case 'generator': var name = ''+ id + '-'+ ++count_g +''; 
         $('#_work_space').append('<div class="item_icon" data-type="'+ type +'" data-name="'+ name +'"><img src="img/items/generator.svg"/></div>');
         addToItemsList (name_item, name, type, count_g);
 
       break;
 
-      case 'transformator': var name = ''+ id + '-'+ count_t++ +'';
+      case 'transformator': var name = ''+ id + '-'+ ++count_t +'';
         $('#_work_space').append('<div class="item_icon" data-type="'+ type +'" data-name="'+ name +'"><img src="img/items/t2.svg"/></div>');
         addToItemsList (name_item, name, type, count_t);
 
       break;
 
-      case 'shina': var name = ''+ id + '-'+ count_s++ +'';
+      case 'shina': var name = ''+ id + '-'+ ++count_s +'';
         $('#_work_space').append('<div class="item_icon resizable_def" data-type="'+ type +'" data-name="'+ name +'">РУ - '+ count_s +'</div>');
         $('#btn_shina').addClass('btn_change')
         $('#btn_shina').removeClass('disabled');
@@ -82,13 +82,13 @@ $( document ).ready(function() {
 
       break;
 
-      case 'conductor-v': var name = ''+ id + '-'+ count_c++ +'';
+      case 'conductor-v': var name = ''+ id + '-'+ ++count_c +'';
         $('#_work_space').append('<svg class="item_icon svg-v" data-type="'+ type +'" data-name="'+ name +'" width="25px" height="50px"><line x1="12" y1="0" x2="12" y2="1000" style="stroke-width: 1.8; stroke: black;"></line></svg>');
         addToItemsList (name_item, name, type, count_c);
 
       break;
 
-      case 'conductor-g': var name = ''+ id + '-'+ count_c++ +'';
+      case 'conductor-g': var name = ''+ id + '-'+ ++count_c +'';
         $('#_work_space').append('<svg class="item_icon svg-g" data-type="'+ type +'" data-name="'+ name +'" width="50px" height="25px"><line x1="0" y1="12" x2="1000" y2="12" style="stroke-width: 1.8; stroke: black;"></line></svg>');
         addToItemsList (name_item, name, type, count_c);
 
@@ -181,6 +181,8 @@ $( document ).ready(function() {
        
       if ( T_G_type == 'transformator' || T_G_type == 'generator' ) {
         Vetka[T_G_name] = {};
+        Uzel.shina_def = {};
+        Uzel.shina_def.name = 'shina_def';
         // присвоение координат Т и Г
         var T_G_inp1x = Elements[i].inp_1_x;
         var T_G_inp1y = Elements[i].inp_1_y;
@@ -209,12 +211,13 @@ $( document ).ready(function() {
                 Elements[i].out_1 = S_С_name;
 
                 if (T_G_type == 'transformator') {
-                  Vetka[T_G_name].R = Elements[i].Ukz;
+                  Vetka[T_G_name].R = (Elements[i].Ukz)/(Elements[i].Snom);
                   Vetka[T_G_name].out_1 = S_С_name;
                 }
                 if (T_G_type == 'generator') {
-                  Vetka[T_G_name].R = Elements[i].Xd;
+                  Vetka[T_G_name].R = Elements[i].Xd * 100/Elements[i].S;
                   Vetka[T_G_name].out_1 = S_С_name;
+                  Vetka[T_G_name].out_2 = 'shina_def';
                 }
               };
               // проверяем выход 2 на совпадения по оси Y
@@ -222,14 +225,14 @@ $( document ).ready(function() {
                 Elements[i].out_2 = S_С_name;
                
                 if (T_G_type == 'transformator') {
-                  Vetka[T_G_name].R = Elements[i].Ukz;
+                  Vetka[T_G_name].R = (Elements[i].Ukz)/(Elements[i].Snom);
                   Vetka[T_G_name].out_2 = S_С_name;
                 }
-                if (T_G_type == 'generator') {
-                  Vetka[T_G_name].R = Elements[i].Xd;
-                  Vetka[T_G_name].out_2 = S_С_name;
+
+              }                if (T_G_type == 'generator') {
+                  Vetka[T_G_name].R = Elements[i].Xd * 100/Elements[i].S;
+                  Vetka[T_G_name].out_2 = 'shina_def';
                 }
-              }
             };
           };
 
@@ -288,6 +291,7 @@ $( document ).ready(function() {
       html += '</p>'
       r++;
     });
+    arr_A.splice(0, 1);
     html += '</div>';
 
     // ------------matrix Zb -------------
@@ -307,12 +311,13 @@ $( document ).ready(function() {
           arr_r[n] = 0;
         } 
         arr_Zb[r] = (arr_r);
-        html += '<span>'+ arr_r[n] +'</span>'
+        html += '<span>'+ arr_r[n].toFixed(3) +'</span>'
         n++;
       });
       html += '</p>'
       r++;
     });
+
     html += '</div>';
   
     // ---------matrix Zy = (A*Zb^-1*A^t)^-1 --------------------------------------------
@@ -338,8 +343,60 @@ $( document ).ready(function() {
       html += '</p>';
     });
 
+  html += '</div>'
+  $('#matrix_A').html(html);  
+
+
+  var html_2 = '<div class="curr_result">Струм в точках КЗ: '  
+  var kz = $('#Items_list > [data-type = shina]');
+  var kz_n = 0;
+  var html_3 = '';
+  // Ikz ---------------------------
+  $.each(kz, function(i){
+
+    if ( (kz[i]).lastChild.offsetParent.firstElementChild.checked ) {
+
+      var Ikz = 1/Zy[kz_n][kz_n];
+      html_2 += '<p>I<sub>КЗ'+ ++kz_n +'</sub> = '+ Ikz.toFixed(3) + ';</p><span class="iq">Cтруми в гілках в відносних одиницях:</span>'
+
+      var name = $(this).attr('data-name'); 
+      // Iq -----------------------
+      $.each(Elements, function(j) {
+        var alfa = 0, beta = 0;
+       
+        if (Elements[j].out_1 == name) {
+          var ab = indexOfItem (Elements[j].name);
+          
+          alfa = indexOfItem (Elements[j].out_1);
+          var zy_a = Zy[alfa - 1][kz_n - 1];
+
+          if (Elements[j].type == 'generator' ) {
+            zy_b = 0;
+          } else {
+            beta = indexOfItem (Elements[j].out_2);
+            zy_b = Zy[beta - 1][kz_n - 1];
+          }
+
+          var Iq = (zy_a - zy_b)/(arr_Zb[ab - 1][ab - 1])* Ikz;
+          // 57.735026919 = 100/Sbaz, Sbaz = 100
+          var i_final = Iq * 57.735026919;
+
+          html_2 += '<p>iq<sub>'+ Elements[j].name +'</sub> = '+ Iq.toFixed(3) + ';</p>'
+          html_3 += '<p>i<sub>'+ Elements[j].name +'</sub> = '+ i_final.toFixed(3) + ';</p>'
+        }
+      });
+
+    }
+    kz_n++;
+  });  
+
+  kz_n = 0;
+  html_2 += '<span class="i_final">Cтруми в гілках в іменованих одиницях:</span>'+ html_3 +'</div>'
+  console.log(Uzel);
+  console.log(Vetka);
+    
   // display result
-    $('#matrix_A').html(html);
+  $('#curr_res').html(html_2);    
   });
 //-------------------------------------------------------------------------
 
@@ -349,7 +406,7 @@ $( document ).ready(function() {
     delete Elements[element];
 
     $(this).parent().remove();
-    $('#_work_space > [data-name = ' + element +']').remove()
+    $('#_work_space > [data-name = ' + element +']').remove();
   });
 
 // Show current Item
@@ -391,14 +448,6 @@ $( document ).ready(function() {
     }
   });
 
-  // Change mode -----------------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  $('body').on('click', '.active_item', function() {
-    var chek = $(''+$(this)+'> .check');
-    // if $(this > '.check') {
-    console.log(chek);
-    // }
-  });
-
 });
 //-----------------------------END--------------------------
 
@@ -417,6 +466,12 @@ function showCurrentItem (item) {
   item = $(item).attr('data-name');
   $('#Items_list > [data-name = ' + item +']').addClass('active_item');
   $('#_work_space > [data-name = ' + item +']').addClass('active_item_on_wp');
+}
+
+function indexOfItem (name) {
+  var a = name;
+  a = a.substr(-1);
+  return parseInt(a);
 }
 
 //Транспонування матриць
