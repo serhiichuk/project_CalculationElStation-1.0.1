@@ -1,0 +1,175 @@
+$accent: #80cbc4
+$blue: #47769e
+$red: #dc475b
+
+* 
+	padding: 0
+	margin: 0
+	-webkit-transition: all .02s
+	-o-transition: all .02s
+	transition: all .02s
+
+body 
+	font-family: 'Roboto', sans-serif
+	min-width: 600px
+
+.btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus
+	outline: none
+
+.container
+	margin-left: 10px;
+	width: 99%;
+
+.work-space 
+	position: relative
+	height: 80vh
+	background-image: url(..//img/bg.png)
+	background-position: 10px 10px
+	border: solid 2px $accent
+	border-radius: 2px
+	margin-top: 10px
+
+.item_icon
+	position: absolute
+	top: 210px
+	left: 45px	
+	img
+		width: 30px
+		
+.svg-g
+	top: 198px
+	left: 35px	
+
+.svg-v
+	top: 210px
+	left: 23px
+
+.items-space
+	margin: 0
+	padding: 0
+	margin-top: 10px
+	
+.nav-tabs
+	margin-left: 5px
+
+.nav-menu-custom
+	li 
+		a
+			border-radius: 2px	
+			padding: 8px
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover
+	border-bottom-color: #ddd
+
+.input-group
+	margin: 5px
+	width: 45%
+	display: inline-table
+	span
+		width: 50px
+		text-align: left
+		padding: 0
+		padding-left: 8px
+
+.tab-pane > p
+	margin: 5px
+
+#btn_res
+	margin-right: 5%
+	width: 35%
+	float: right
+	color: #fff
+	background-color: $blue
+	font-weight: bold
+
+#btn_add
+	margin-left: 15px
+	background-color: #e0e0e0
+
+#btn_shina
+	margin-top: 10px
+	margin-left: 5px
+	padding: 6px
+	font-size: 12px
+
+.resizable_def
+	padding-top: 4px
+	font-size: 12px
+	text-align: center
+	z-index: 2
+	background-color: #fff
+	position: absolute
+	width: 100px
+	height: 25px
+	outline: solid 1px
+
+#Items_list p
+	position: relative
+	margin: 0
+	margin-left: 5px
+	font-size: 12px
+	padding: 3px 
+
+.del
+	transition: all .3s
+	position: absolute
+	margin-left: 25px
+	background-image: url(..//img/close.svg)
+	width: 15px
+	height: 15px
+	background-repeat: no-repeat
+	&:hover
+		transform: scale(1.1)
+
+.active_item
+	background-color: rgba(51, 122, 183, 0.16)
+
+.active_item_on_wp
+	outline: dotted 2px $accent
+
+.items-space 
+	> span, #btn_size
+		margin-left: 10px
+	
+#conductor-g, #conductor-v
+	svg
+		margin-left: 10px
+		margin-top: 10px
+
+.matrix
+	margin-bottom: 25px
+	padding: 5px
+	padding-bottom: 0px
+	border-right: solid 1px
+	border-left: solid 1px	
+	display: inline-block
+	p
+		display: flex
+		text-align: center
+		justify-content: space-between
+		span
+			padding: 0 5px
+#matrix_A > p
+	display: table
+	margin-top: 10px
+
+.mode
+	margin-left: 10px
+	.btn
+		padding: 5px
+		font-size: 12px
+
+.active-mode
+	color: #fff
+	background-color: $blue			
+
+.check
+	position: absolute
+	top: 0px
+	margin-left: 5px
+
+#matrix_A > div.matrix.matrix-a > p:nth-child(1)
+	display: none	
+
+// ------------always END-----------
+@import "media"
